@@ -568,4 +568,8 @@ class obras{
   cambiarDiseño14() {
     this.diseñoactual14 = (this.diseñoactual14 + 1) % this.fondo.length; // Cambiar al siguiente diseño
   }
+
+  cambiarEstado() {
+    this.estadoObra = (this.estadoObra + 1) % 14; // Cambia el estado y asegura que esté en el rango válido
+}
 }

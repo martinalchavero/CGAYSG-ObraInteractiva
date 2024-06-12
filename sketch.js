@@ -11,8 +11,6 @@ let AMP_MAX = 0.1;
 let FREC_MIN = 210; //grave
 let FREC_MAX = 300; //agudo
 
-
-
 let AMORTIGUACION = 0.9; // factor de amortiguación de la señal
 let pitch;
 let amp;
@@ -25,7 +23,6 @@ let diseñoActual = 0;
 
 //----AUDIO----
 let mic;
-
 
 //GESTOR
 let gestorAmp;
@@ -46,8 +43,7 @@ function preload() {
   classifier = ml5.soundClassifier(soundModel + 'model.json', options);
 }
 //IMPRIMIR
-let IMPRIMIR = true;
-
+let IMPRIMIR = false;
 
 function setup() {
   createCanvas(600, 600);
@@ -62,13 +58,9 @@ gestorPitch = new GestorSenial( FREC_MIN, FREC_MAX);
 
 gestorAmp.f = AMORTIGUACION;
 
-
-
-  userStartAudio(); // forzar el inicio del audio en el navegador
+userStartAudio(); // forzar el inicio del audio en el navegador
 
   classifier.classify(gotResult);
-
- 
 }
 
 function draw() {
@@ -104,7 +96,6 @@ function draw() {
       o.coloresActuales[indice] = o.generarColorAleatorio();
     });
 }
-
 
   if (haySonido && amp > AMP_MAX && frec >= 0.7) {
     console.log("Cambiando colores los fondos");
@@ -178,14 +169,14 @@ if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
         o.cambiarDiseño14();
         break;
       default:
-        // Opcional: manejar el caso por si hay algún error
+
         console.error("Diseño no válido");
     }
   }
 
-  if(monitorear){
-    gestorPitch.dibujar(100, 300);
-  }
+  //if(monitorear){
+    //gestorPitch.dibujar(100, 300);
+  //}
 
   antesHabiaSonido = haySonido;
 }
@@ -216,16 +207,8 @@ function gotResult(error, results) {
     console.error(error);
     return;
   }
-
   console.log(results);
   label = results[0].label;
-
-  //if (label === "PI") // Cambiar de obra cuando se detecte "PI"
-  //{
-    //o.cambioObras(); 
-    //console.log("Se detectó la palabra 'pi'");
-  //}
-
 }
 
 function mousePressed() {
@@ -259,14 +242,13 @@ function keyPressed() {
   }
 }
 
-
-
 function keyReleased() {
   if (keyCode === ENTER) // Marcar la tecla 'Enter' como soltada
   {
     isEnterPressed = false; 
   }
 }
+
 function printData(){
 
   push();

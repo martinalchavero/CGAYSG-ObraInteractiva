@@ -183,9 +183,9 @@ if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
     }
   }
 
-  /*if(monitorear){
+  if(monitorear){
     gestorPitch.dibujar(100, 300);
-  }*/
+  }
 
   antesHabiaSonido = haySonido;
 }

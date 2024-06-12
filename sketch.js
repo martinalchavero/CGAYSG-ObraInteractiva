@@ -250,7 +250,6 @@ function keyReleased() {
 }
 
 function printData(){
-
   push();
   textSize (16);
   fill(0);

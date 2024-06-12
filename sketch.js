@@ -74,17 +74,17 @@ gestorAmp.f = AMORTIGUACION;
 function draw() {
   o.dibujar();
   
- // if (label == "aplauso") // Cambiar colores de fondo si la etiqueta es "aplauso"
+  if (label == "aplauso") // Cambiar colores de fondo si la etiqueta es "aplauso"
  
-  //{  
-   // for (let i = 0; i < o.coloresFondos.length; i++) {
-    //  o.coloresFondos[i] = {
-      //  r: random(255),
-      //  g: random(255),
-      //  b: random(255)
-     // };
-   // }
- // }
+  {  
+    for (let i = 0; i < o.coloresFondos.length; i++) {
+      o.coloresFondos[i] = {
+        r: random(255),
+        g: random(255),
+        b: random(255)
+      };
+    }
+ }
 
   gestorAmp.actualizar(mic.getLevel());  
 

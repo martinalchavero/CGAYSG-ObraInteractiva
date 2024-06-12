@@ -74,11 +74,11 @@ gestorAmp.f = AMORTIGUACION;
 function draw() {
   o.dibujar();
 
-  //gestorAmp.actualizar(mic.getLevel());  
+  gestorAmp.actualizar(mic.getLevel());  
 
-  //amp = gestorAmp.filtrada;
+  amp = gestorAmp.filtrada;
 
-  //frec = gestorPitch.filtrada;
+  frec = gestorPitch.filtrada;
 
   haySonido = amp > AMP_MIN;
 
@@ -183,9 +183,9 @@ if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
     }
   }
 
-  if(monitorear){
+  /*if(monitorear){
     gestorPitch.dibujar(100, 300);
-  }
+  }*/
 
   antesHabiaSonido = haySonido;
 }

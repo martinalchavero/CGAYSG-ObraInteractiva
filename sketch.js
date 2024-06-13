@@ -17,6 +17,7 @@ let frec;
 let haySonido = false;
 let antesHabiaSonido = false;  // memoria del estado de "haySonido" un fotograma atrás
 let diseñoActual = 0;
+let generarObra = 0;
 
 //----AUDIO----
 let mic;
@@ -40,6 +41,8 @@ gestorPitch = new GestorSenial( FREC_MIN, FREC_MAX);
 gestorAmp.f = AMORTIGUACION;
 
 userStartAudio(); // forzar el inicio del audio en el navegador
+generarObra = floor(random(7));
+cambiarObra(generarObra);
 
 }
 
@@ -87,7 +90,9 @@ function draw() {
 
 //cambio estado
 if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
-    o.cambioObras(); 
+   // o.cambioObras(); 
+   generarObra = (generarObra + 1) % 7;
+    cambiarObra(generarObra);
     console.log("Se detectó cambio estado");
 }
 
@@ -151,8 +156,11 @@ if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
   }
 
   antesHabiaSonido = haySonido;
-}
 
+}
+function cambiarObra(indice) {
+  o.estadoObra = indice;
+}
 // ---- Pitch detection ---
 function startPitch() {
   pitch = ml5.pitchDetection(pitchModel, audioContext , mic.stream, modelLoaded);
@@ -172,4 +180,5 @@ function getPitch() {
     getPitch();
   })
 }
+
 

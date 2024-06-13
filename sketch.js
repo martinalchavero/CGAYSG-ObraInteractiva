@@ -29,21 +29,10 @@ let gestorAmp;
 let gestorPitch;
 
 let audioContext;
-const pitchModel = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/';
 
 let classifier;
 const options = { probabilityThreshold: 0.9 };
 let label;
-
-// Teachable Machine model URL:
-let soundModel = 'https://teachablemachine.withgoogle.com/models/VvpBMYSvg/';
-
-function preload() {
-  // Load SpeechCommands18w sound classifier model
-  classifier = ml5.soundClassifier(soundModel + 'model.json', options);
-}
-//IMPRIMIR
-let IMPRIMIR = false;
 
 function setup() {
   createCanvas(600, 600);
@@ -60,7 +49,6 @@ gestorAmp.f = AMORTIGUACION;
 
 userStartAudio(); // forzar el inicio del audio en el navegador
 
-  classifier.classify(gotResult);
 }
 
 function draw() {
@@ -75,10 +63,6 @@ function draw() {
   haySonido = amp > AMP_MIN;
 
   let empezoElSonido = haySonido && !antesHabiaSonido; //evento
-
-  if (IMPRIMIR){
-    printData();
-  }
 
   // Cambiar colores con la voz
   if (haySonido && amp >= AMP_MAX && frec <= 0.3) {
@@ -174,10 +158,6 @@ if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
     }
   }
 
-  //if(monitorear){
-    //gestorPitch.dibujar(100, 300);
-  //}
-
   antesHabiaSonido = haySonido;
 }
 
@@ -186,9 +166,9 @@ function startPitch() {
   pitch = ml5.pitchDetection(pitchModel, audioContext , mic.stream, modelLoaded);
 }
 
-function modelLoaded() {
-  getPitch();
-}
+//function modelLoaded() {
+  //getPitch();
+//}
 
 function getPitch() {
   pitch.getPitch(function(err, frequency) {
@@ -201,68 +181,3 @@ function getPitch() {
   })
 }
 
-//-------- CLASIFICADOR------
-function gotResult(error, results) {
-  if (error) {
-    console.error(error);
-    return;
-  }
-  console.log(results);
-  label = results[0].label;
-}
-
-function mousePressed() {
-    o.cambioObras();
-}
-
-function keyPressed() {
-    if (key === 'O' || key === 'o') // Cambiar de diseño cuando se presione 'O'
-  {
-    o.cambiarDiseño();
-    o.cambiarDiseño1();
-    o.cambiarDiseño2();
-    o.cambiarDiseño3();
-    o.cambiarDiseño4();
-    o.cambiarDiseño5();
-    o.cambiarDiseño6();
-    o.cambiarDiseño7();
-    o.cambiarDiseño8();
-    o.cambiarDiseño9();
-    o.cambiarDiseño10();
-    o.cambiarDiseño11();
-    o.cambiarDiseño12();
-    o.cambiarDiseño13();
-    o.cambiarDiseño14();
-  } 
-  else if (keyCode === ENTER) // Marcar la tecla 'Enter' como presionada
-  {
-    isEnterPressed = true; 
-  } else {
-    o.teclaActual = null;
-  }
-}
-
-function keyReleased() {
-  if (keyCode === ENTER) // Marcar la tecla 'Enter' como soltada
-  {
-    isEnterPressed = false; 
-  }
-}
-
-function printData(){
-  push();
-  textSize (16);
-  fill(0);
-  let texto;
-
-  texto = 'amplitud: ' + amp;
-  text (texto, 20, 20);
-  pop();
-
-  push();
-  textSize (16);
-  texto = 'frecuencia: ' + frec;
-  text (texto, 20, 40);
-  pop();
-  gestorAmp.dibujar(100, 500); //barra de gestor
-}

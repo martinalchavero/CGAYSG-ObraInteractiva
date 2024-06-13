@@ -1,7 +1,4 @@
 let o;
-let isBPressed = false; //  indicar si la tecla 'B' está presionada
-let isEnterPressed = false; // indicar si la tecla 'Enter' está presionada
-
 let monitorear = true;
 
 //---- CALIBRACION----
@@ -27,12 +24,7 @@ let mic;
 //GESTOR
 let gestorAmp;
 let gestorPitch;
-
 let audioContext;
-
-let classifier;
-const options = { probabilityThreshold: 0.9 };
-let label;
 
 function setup() {
   createCanvas(600, 600);

@@ -91,7 +91,7 @@ function draw() {
 //cambio estado
 if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
    // o.cambioObras(); 
-   generarObra = (generarObra + 1) % 7;
+   generarObra = (generarObra + 1) % 15;
     cambiarObra(generarObra);
     console.log("Se detectó cambio estado");
 }
@@ -145,9 +145,6 @@ if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
         break;
       case 13:
         o.cambiarDiseño13();
-        break;
-      case 14:
-        o.cambiarDiseño14();
         break;
       default:
 

@@ -3,7 +3,7 @@ let monitorear = true;
 
 //---- CALIBRACION----
 let AMP_MIN = 0.01;
-let AMP_MAX = 0.1;
+let AMP_MAX = 0.06;
 
 let FREC_MIN = 210; //grave
 let FREC_MAX = 300; //agudo
@@ -27,6 +27,23 @@ let gestorAmp;
 let gestorPitch;
 let audioContext;
 
+const pitchModel = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/';
+
+let classifier;
+const options = { probabilityThreshold: 0.9 };
+let label;
+
+// Teachable Machine model URL:
+let soundModel = 'https://teachablemachine.withgoogle.com/models/VvpBMYSvg/';
+
+function preload() {
+  // Load SpeechCommands18w sound classifier model
+  classifier = ml5.soundClassifier(soundModel + 'model.json', options);
+}
+
+//IMPRIMIR
+let IMPRIMIR = true;
+
 function setup() {
   createCanvas(600, 600);
   o = new obras();
@@ -44,6 +61,7 @@ userStartAudio(); // forzar el inicio del audio en el navegador
 generarObra = floor(random(7));
 cambiarObra(generarObra);
 
+  classifier.classify(gotResult);
 }
 
 function draw() {
@@ -58,6 +76,10 @@ function draw() {
   haySonido = amp > AMP_MIN;
 
   let empezoElSonido = haySonido && !antesHabiaSonido; //evento
+
+  //if (IMPRIMIR){
+    //printData();
+  //}
 
   // Cambiar colores con la voz
   if (haySonido && amp >= AMP_MAX && frec <= 0.3) {
@@ -77,7 +99,7 @@ function draw() {
 }
 
   if (haySonido && amp > AMP_MAX && frec >= 0.7) {
-    console.log("Cambiando colores los fondos");
+    console.log("Cambiando colores los fondos (frecuencia aguda)");
     // Índices de los patrones a cambiar
     for (let i = 0; i < o.coloresFondos.length; i++) {
       o.coloresFondos[i] = {
@@ -89,16 +111,15 @@ function draw() {
 }
 
 //cambio estado
-if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
-   // o.cambioObras(); 
-   generarObra = (generarObra + 1) % 15;
+if (empezoElSonido && amp < 0.1 && frec >= 0.4) {
+    //o.cambioObras(); 
+    generarObra = (generarObra + 1) % 15;
     cambiarObra(generarObra);
     console.log("Se detectó cambio estado");
 }
 
   if (haySonido && amp > 0.05 && frec <= 0.4) {
-    // Cambiar de diseño cuando se presione 'O'
-  
+      // Cambiar de diseño patron
     // Incrementar el diseño actual y asegurarse de que esté dentro del rango válido
     diseñoActual = (diseñoActual + 1) % 15;
   
@@ -152,20 +173,25 @@ if (empezoElSonido && amp < 0.5 && frec >= 0.4) {
     }
   }
 
-  antesHabiaSonido = haySonido;
+  //if(monitorear){
+    //gestorPitch.dibujar(100, 300);
+  //}
 
+  antesHabiaSonido = haySonido;
 }
+
 function cambiarObra(indice) {
   o.estadoObra = indice;
 }
+
 // ---- Pitch detection ---
 function startPitch() {
   pitch = ml5.pitchDetection(pitchModel, audioContext , mic.stream, modelLoaded);
 }
 
-//function modelLoaded() {
-  //getPitch();
-//}
+function modelLoaded() {
+  getPitch();
+}
 
 function getPitch() {
   pitch.getPitch(function(err, frequency) {
@@ -178,4 +204,32 @@ function getPitch() {
   })
 }
 
+//-------- CLASIFICADOR------
+function gotResult(error, results) {
+  if (error) {
+    console.error(error);
+    return;
+  }
+  console.log(results);
+  label = results[0].label;
+}
 
+
+function printData(){
+
+  push();
+  textSize (16);
+  fill(0);
+  let texto;
+
+  texto = 'amplitud: ' + amp;
+  text (texto, 20, 20);
+  pop();
+
+  push();
+  textSize (16);
+  texto = 'frecuencia: ' + frec;
+  text (texto, 20, 40);
+  pop();
+  gestorAmp.dibujar(100, 500); //barra de gestor
+}

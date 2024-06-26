@@ -216,7 +216,6 @@ function gotResult(error, results) {
 
 
 function printData(){
-
   push();
   textSize (16);
   fill(0);

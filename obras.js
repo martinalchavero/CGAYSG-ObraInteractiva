@@ -114,7 +114,6 @@ this.coloresFondos[10] = { r: 255, g: 255, b: 255 };
         return [r, g, b];
     }
     
-    
     generarObra(fc1,fc2,fc3,figura,fx,fy,fw,fh){
         push();
         tint(fc1,fc2,fc3);

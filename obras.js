@@ -21,14 +21,15 @@ class obras{
          this.diseñoactual3= 3;
          this.diseñoactual4= 6;
          this.diseñoactual5= 10;
-         this.diseñoactual6= 0;
+         this.diseñoactual6= 3;
          this.diseñoactual7= 8;
-         this.diseñoactual8= 9;
-         this.diseñoactual9= 11;
-         this.diseñoactual10= 19;
+         this.diseñoactual8= 7;
+         this.diseñoactual9= 3;
+         this.diseñoactual10= 8;
          this.diseñoactual11= 25;
          this.diseñoactual12= 17;
          this.diseñoactual13= 16;
+         this.diseñoactual14= 10;
 
          this.coloresIniciales = [  // Colores iniciales para cada patrón
             [255,150,0], // 0
@@ -68,7 +69,7 @@ class obras{
             [139, 50, 44], //33
             [200, 100, 50], //34
             [217, 237, 191], //35
-            [200, 100, 50], //36
+            [200, 100, 50], 
 
         ];
 
@@ -76,16 +77,33 @@ class obras{
         this.teclaActual = null;
 
 
-        this.coloresFondos = [];
-        for (let i = 0; i < 20; i++) {
-            this.coloresFondos.push({
-                r: random(255),
-                g: random(255),
-                b: random(255)
-            }
-            );
-        }
-        
+     // Lista de colores en formato hexadecimal
+const coloresHex = [
+    "0C0F14", "F1C552", "FBFDF7", "6D7ED6", "E157BB", "ADC2B8", 
+    "FD5A5F", "F7FEE3", "A3B7C1", "A19B40", "E9F0BB", "EB4208", 
+    "89A673", "E5E173", "A8B561", "556B78", "9F80CC", "ACF199", 
+    "D4FA88", "EAD366", "E7E937", "A2AAA8", "DC0205", "FC5920", 
+    "82939A", "FC4652", "FBFFFF", "FD5818", "FEA71F", "9BAF89", 
+    "F1F5DA", "E7E537"
+];
+
+// Convertir el color hexadecimal a objeto RGB
+function hexToRgb(hex) {
+    let bigint = parseInt(hex, 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+    return { r, g, b };
+}
+
+// Generar colores aleatorios de la lista específica
+this.coloresFondos = [];
+for (let i = 0; i < 20; i++) {
+    const randomColorHex = coloresHex[Math.floor(Math.random() * coloresHex.length)];
+    this.coloresFondos.push(hexToRgb(randomColorHex));
+}
+
+this.coloresFondos[10] = { r: 255, g: 255, b: 255 };
         
     }
     generarColorAleatorio() {
@@ -136,9 +154,9 @@ class obras{
     }
     
     
+    
     dibujar() {
         switch (this.estadoObra) {
-            //--- OBRA 0
             case 0:
                 push();
                 background(240);
@@ -178,15 +196,14 @@ class obras{
                 this.generarPatron(65, [142, 62, 99], 3, 15, 300, 575, 620, 950); // patron 3
 
                 pop();
-            break;
+                break;
 
-            //--- OBRA 1
             case 1:
                 push();
                 background(240, 100, 10);
 
                 this.generarObra(this.coloresFondos[14].r, this.coloresFondos[14].g, this.coloresFondos[14].b, 13, 40, 220);
-                this.generarPatron(73, [255, 228, 181], this.diseñoactual2, 13, 40, 220); // patron 13
+                this.generarPatron(73, [255, 228, 181], this.diseñoactual2, 13, 40, 220); // patron 27
 
                 this.generarObra(this.coloresFondos[15].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 12, 80, 50, 900, 600);
                 this.generarPatron(65, [220, 20, 60], 15, 12, 70, 40, 900, 600); // patron 15
@@ -214,17 +231,16 @@ class obras{
                 pop();
             break;
 
-            //---- OBRA 2
             case 2:
                 push();
                 background(240, 100, 50);
 
                     
                 this.generarObra(this.coloresFondos[7].r, this.coloresFondos[5].g, this.coloresFondos[18].b, 10, 395, 350, 550, 400);
-                this.generarPatron(65, [255, 228, 181],3,10, 395, 350, 550, 400); // patron 3
+                this.generarPatron(65, [255, 228, 181],3,10, 395, 350, 550, 400); // patron 36 -- AHORA 3
 
                 this.generarObra(this.coloresFondos[13].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 12, 80, 540, 900, 600);
-                this.generarPatron(73, [0, 250, 125],this.diseñoactual4,12, 80, 540, 900, 600); // patron 6
+                this.generarPatron(73, [0, 250, 125],this.diseñoactual4,12, 80, 540, 900, 600); // patron 24 -- AHORA 6
                 
                 this.generarObra(this.coloresFondos[3].r, this.coloresFondos[13].g, this.coloresFondos[5].b, 7, 350, 150,800, 600);
                 this.generarPatron(73, [139, 50, 44],11, 7, 350, 150,800, 600); // patron 11
@@ -255,7 +271,6 @@ class obras{
                 pop();
             break;
 
-            //--- OBRA 3
             case 3:
                 push();
                 background(240);
@@ -265,7 +280,7 @@ class obras{
                 this.generarObra(this.coloresFondos[8].r, this.coloresFondos[8].g, this.coloresFondos[8].b, 8, 492, 250, 700, 505);
 
                 this.generarObra(this.coloresFondos[9].r, this.coloresFondos[9].g, this.coloresFondos[9].b, 9, 564, 255, 740, 525);
-                this.generarPatron(65, [0, 0, 0], this.diseñoactual3, 9, 564, 255, 740, 525); // patron 30 -- AHORA 3
+                this.generarPatron(65, [0, 0, 0], this.diseñoactual6, 9, 564, 255, 740, 525); // patron 30 -- AHORA 3
 
                 this.generarObra(this.coloresFondos[0].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 0, 375, 518, 500, 500);
 
@@ -293,10 +308,11 @@ class obras{
                 this.generarObra(this.coloresFondos[12].r, this.coloresFondos[12].g, this.coloresFondos[12].b, 15, 395, 28, 480, 1820);
                 this.generarPatron(73, [70, 130, 180], 22,15, 395, 28, 480, 1820); // patron 22 -- 11
 
+                //this.generarObra(this.coloresFondos[13].r, this.coloresFondos[13].g, this.coloresFondos[13].b, 15, 300, 575, 620, 950);
+                //this.generarPatron(65, [142, 62, 99], 3, 15, 300, 575, 620, 950); // patron 3
+
                 pop();
             break;
-
-            //----------- OBRA 0 A LA DERECHA
             case 4:
                 push();
                 background(240);
@@ -316,7 +332,7 @@ class obras{
                 this.generarObra(this.coloresFondos[4].r, this.coloresFondos[4].g, this.coloresFondos[4].b, 4, -height / 2 + 220, -width / 2 + 80, 500, 500);
 
                 this.generarObra(this.coloresFondos[15].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 5, -height / 2 + 440, -width / 2 + 30, 730, 730);
-                this.generarPatron(65, [255, 140, 0], this.diseñoActual, 5, -height / 2 + 440, -width / 2 + 30, 730, 730); // patron 7
+                this.generarPatron(65, [255, 140, 0], this.diseñoactual8, 5, -height / 2 + 440, -width / 2 + 30, 730, 730); // patron 7
 
                 this.generarObra(this.coloresFondos[6].r, this.coloresFondos[6].g, this.coloresFondos[6].b, 6, -height / 2 + 20, -width / 2 + 380, 500, 645);
                 this.generarPatron(73, [0, 0, 128], 9, 6, -height / 2 + 20, -width / 2 + 380, 500, 645); // patron 9
@@ -327,7 +343,7 @@ class obras{
 
                 this.generarObra(this.coloresFondos[9].r, this.coloresFondos[9].g, this.coloresFondos[9].b, 9, -height / 2 + 344, -width / 2 + 242, 740, 500);
 
-                this.generarObra(this.coloresFondos[17].r, this.coloresFondos[17].g, this.coloresFondos[17].b, 10, -height / 2 + 491, -width / 2 + 310, 704, 550);
+                this.generarObra(this.coloresFondos[10].r, this.coloresFondos[10].g, this.coloresFondos[10].b, 10, -height / 2 + 491, -width / 2 + 310, 704, 550);
                 this.generarPatron(65, [0, 0, 0], 2, 10, -height / 2 + 491, -width / 2 + 310, 704, 550); // patron 2
 
                 this.generarObra(this.coloresFondos[11].r, this.coloresFondos[11].g, this.coloresFondos[11].b, 11, -height / 2 + 140, -width / 2 + 344, 480, 550);
@@ -337,12 +353,11 @@ class obras{
                 this.generarPatron(65, [200, 200, 200], 5, 12, -height / 2 + 218, -width / 2 + 485, 546, 740); // patron 5
 
                 this.generarObra(this.coloresFondos[12].r, this.coloresFondos[12].g, this.coloresFondos[12].b, 15, -height / 2 + 300, -width / 2 + 575, 620, 950);
-                this.generarPatron(65, [142, 62, 99], this.diseñoactual3, 15, -height / 2 + 300, -width / 2 + 575, 620, 950); // patron 3
+                this.generarPatron(65, [142, 62, 99], this.diseñoactual9, 15, -height / 2 + 300, -width / 2 + 575, 620, 950); // patron 3
 
                 pop();
             break;
 
-            //--------- OBRA 1 A LA IZQUIERDA
             case 5:
                 push();
                 background(240, 100, 10);
@@ -351,13 +366,13 @@ class obras{
                 translate(-width / 2, -height / 2); // Mover el origen de vuelta a la esquina superior izquierda
                 
                 this.generarObra(this.coloresFondos[0].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 13, 40, 220);
-                this.generarPatron(73, [255, 228, 181], 9, 13, 40, 220); // patron  13
+                this.generarPatron(73, [255, 228, 181], 9, 13, 40, 220); // patron 27 -- AHORA 9
                 
                 this.generarObra(this.coloresFondos[15].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 12, 80, 50, 900, 600);
                 this.generarPatron(65, [220, 20, 60], 15, 12, 70, 40, 900, 600); // patron 15
                 
                 this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 4, 237, 285, 1120, 1000);
-                this.generarPatron(65, [60, 60, 60], this.diseñoactual7, 4, 237, 285, 1120, 1000); // patron 8
+                this.generarPatron(65, [60, 60, 60], this.diseñoactual10, 4, 237, 285, 1120, 1000); // patron 8
                 
                 this.generarObra(this.coloresFondos[3].r, this.coloresFondos[3].g, this.coloresFondos[3].b, 13, 65, 390, 480, 480);
                 
@@ -379,7 +394,8 @@ class obras{
                 pop();
             break;
 
-            //----- OBRA 2 VOLTEADA HORIZONTAL
+
+
             case 6:
                 push();
                 background(240, 100, 50);
@@ -387,10 +403,10 @@ class obras{
                 scale(-1, 1); // Voltear horizontalmente
 
                 this.generarObra(this.coloresFondos[4].r, this.coloresFondos[8].g, this.coloresFondos[19].b, 10, 395, 350, 550, 400);
-                this.generarPatron(65, [255, 228, 181],3,10, 395, 350, 550, 400); // patron 3
+                this.generarPatron(65, [255, 228, 181],3,10, 395, 350, 550, 400); // patron 36 -- ahora 3
 
                 this.generarObra(this.coloresFondos[7].r, this.coloresFondos[3].g, this.coloresFondos[14].b, 12, 80, 540, 900, 600);
-                this.generarPatron(73, [0, 250, 125], 6,12, 80, 540, 900, 600); // patron 6
+                this.generarPatron(73, [0, 250, 125], 6,12, 80, 540, 900, 600); // patron 24 listo color -- AHORA 6
                 
                 this.generarObra(this.coloresFondos[10].r, this.coloresFondos[16].g, this.coloresFondos[16].b, 7, 350, 150,800, 600);
                 this.generarPatron(73, [139, 50, 44],11, 7, 350, 150,800, 600); // patron 11
@@ -421,7 +437,7 @@ class obras{
                 pop();
             break;
 
-            //-------- OBRA 3 A LA IZQUIERDA
+
             case 7:
                 push();
                 background(240);
@@ -457,7 +473,7 @@ class obras{
                 this.generarPatron(65, [0, 250, 125], 8, 16, 165, 524, 680, 900); // patron 26 -- AHORA 8
 
                 this.generarObra(this.coloresFondos[6].r, this.coloresFondos[6].g, this.coloresFondos[6].b, 13, 324, 156, 1146, 620);
-                this.generarPatron(65, [0, 0, 128],this.diseñoactual5,13, 324, 156, 1146, 620); // patron 10
+                this.generarPatron(65, [0, 0, 128],this.diseñoactual14,13, 324, 156, 1146, 620); // patron 10
 
                 this.generarObra(this.coloresFondos[5].r, this.coloresFondos[5].g, this.coloresFondos[5].b, 15, 395, 28, 480, 1820);
                 this.generarPatron(73, [70, 130, 180], 22,15, 395, 28, 480, 1820); // patron 22 -- 11
@@ -465,341 +481,11 @@ class obras{
                 pop();
                 break;
 
-            //----------- OBRA 0 A LA IZQUIERDA
-            case 8:
-                push();
-                background(240);
-                translate(width / 2, height / 2); // Mover el origen al centro del canvas
-                rotate(-HALF_PI); // Rotar 90 grados a la izquierda 
-                translate(-width / 2, -height / 2); // Mover el origen de vuelta a la esquina superior izquierda
-                this.generarObra(this.coloresFondos[10].r, this.coloresFondos[10].g, this.coloresFondos[10].b, 0, 30, 80, 500, 500);
-
-                this.generarObra(this.coloresFondos[1].r, this.coloresFondos[1].g, this.coloresFondos[1].b, 1,80, 80, 500, 500);
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 2, 124, 80, 500, 500);
-
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[3].g, this.coloresFondos[3].b, 3,164,  80, 500, 500);
-                this.generarPatron(65, [255, 150, 0], 0, 3, 164, 80, 500, 500); // patron 0 
-
-                this.generarObra(this.coloresFondos[4].r, this.coloresFondos[4].g, this.coloresFondos[4].b,4,  220, 80, 500, 500);
-
-                this.generarObra(this.coloresFondos[15].r, this.coloresFondos[15].g, this.coloresFondos[15].b,5,440, 30, 730, 730);
-                this.generarPatron(65, [255, 140, 0], 7, 5, 440,  30, 730, 730); // patron 7
-
-                this.generarObra(this.coloresFondos[6].r, this.coloresFondos[6].g, this.coloresFondos[6].b,6, 20, 380, 500, 645);
-                this.generarPatron(73, [0, 0, 128],this.diseñoactual8, 6,20,380, 500, 645); // patron 9
-
-                this.generarObra(this.coloresFondos[7].r, this.coloresFondos[7].g, this.coloresFondos[7].b, 7,148, 223, 490, 514);
-
-                this.generarObra(this.coloresFondos[8].r, this.coloresFondos[8].g, this.coloresFondos[8].b,  8, 272,  236, 700, 500);
-
-                this.generarObra(this.coloresFondos[9].r, this.coloresFondos[9].g, this.coloresFondos[9].b,9, 344,  242, 740, 500);
-
-                this.generarObra(this.coloresFondos[17].r, this.coloresFondos[17].g, this.coloresFondos[17].b, 10,  491, 310, 704, 550);
-                this.generarPatron(65, [0, 0, 0], this.diseñoactual1, 10, 491, 10, 704, 550); // patron 2
-
-                this.generarObra(this.coloresFondos[11].r, this.coloresFondos[11].g, this.coloresFondos[11].b, 11, 140,  344, 480, 550);
-                this.generarPatron(65, [0, 250, 125], 1, 11, 140, 344, 480, 550); // patron 1
-
-                this.generarObra(this.coloresFondos[13].r, this.coloresFondos[13].g, this.coloresFondos[13].b, 12, 218,  485, 546, 740);
-                this.generarPatron(65, [200, 200, 200], 5, 12, 218,  485, 546, 740); // patron 5
-
-                this.generarObra(this.coloresFondos[12].r, this.coloresFondos[12].g, this.coloresFondos[12].b, 15, -width /2 + 300,  575, 620, 950);
-                this.generarPatron(65, [142, 62, 99], this.diseñoactual3, 15, 300,  575, 620, 950); // patron 3
-
-                pop();
-            break;
-            
-            //------- OBRA 1 A LA DERECHA
-            case 9:
-                push();
-                background(240, 100, 10);
-                translate(width / 2, height / 2);
-                rotate(HALF_PI); // Gira 90 grados a la derecha
-
-                this.generarObra(this.coloresFondos[14].r, this.coloresFondos[14].g, this.coloresFondos[14].b, 13,-height / 2 + 40, -width /2 +220);
-                this.generarPatron(73, [255, 228, 181], this.diseñoactual2, 13,-height / 2 + 40,-width /2 + 220); // patron 13
-
-                this.generarObra(this.coloresFondos[15].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 12,-height / 2 + 80, -width /2 +50, 900, 600);
-                this.generarPatron(65, [220, 20, 60], 15, 12, -height / 2 +70,-width /2 + 40, 900, 600); // patron 15
-
-                this.generarObra(this.coloresFondos[16].r, this.coloresFondos[16].g, this.coloresFondos[16].b, 4, -height / 2 +237, -width /2 +285, 1120, 1000);
-                this.generarPatron(65, [60, 60, 60], 8, 4, -height / 2 +237, -width /2 +285, 1120, 1000); // patron 8
-
-                this.generarObra(this.coloresFondos[17].r, this.coloresFondos[17].g, this.coloresFondos[17].b, 13, -height / 2 +65, -width /2 +390, 480, 480);
-
-                this.generarObra(this.coloresFondos[18].r, this.coloresFondos[18].g, this.coloresFondos[18].b, 17,-height / 2 + 345, -width /2 +280, 950, 1380);
-                this.generarPatron(65, [255, 118, 206], 6, 17, -height / 2 +345, -width /2 +280, 950, 1380); // patron 6
-
-                this.generarObra(this.coloresFondos[19].r, this.coloresFondos[19].g, this.coloresFondos[19].b, 12, -height / 2 +165,-width /2 + 510, 600, 900);
-                this.generarPatron(65, [217, 237, 191], 14, 12, -height / 2 +165,-width /2 + 510, 600, 900); // patron 14
-
-                this.generarObra(this.coloresFondos[0].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 11, -height / 2 +500, -width /2 +250, 640, 1500);
-                
-                this.generarObra(this.coloresFondos[1].r, this.coloresFondos[1].g, this.coloresFondos[1].b, 18, -height / 2 +615, -width /2 +50, 500, 500);
-                this.generarPatron(65, [139, 50, 44], this.diseñoactual3, 18, -height / 2 +615, -width /2 +50, 500, 500); // patron 21 -- AHORA 3
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 11, -height / 2 +490,-width /2 + 520, 700, 655);
-                this.generarPatron(65, [255, 182, 193], 12, 11, -height / 2 +490,-width /2 + 520, 700, 655); // patron 12
-
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[3].g, this.coloresFondos[3].b, 15, -height / 2 +165, -width /2 +430);
-                pop();
-            break;
-       
-            //----- OBRA 2 A LA IZQUIERDA
-            case 10:
-                push();
-                background(240, 100, 50);
-                translate(width / 2, height / 2); // Mover el origen al centro del canvas
-                rotate(-HALF_PI); // Rotar 90 grados a la izquierda 
-                translate(-width / 2, -height / 2); // Mover el origen de vuelta a la esquina superior izquierda
-                    
-                this.generarObra(this.coloresFondos[7].r, this.coloresFondos[5].g, this.coloresFondos[18].b, 10, 395, 350, 550, 400);
-                this.generarPatron(65, [255, 228, 181],3,10, 395, 350, 550, 400); // patron 3
-
-                this.generarObra(this.coloresFondos[13].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 12, 80, 540, 900, 600);
-                this.generarPatron(73, [0, 250, 125],this.diseñoactual4,12, 80, 540, 900, 600); // patron 6
-                
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[13].g, this.coloresFondos[5].b, 7, 350, 150,800, 600);
-                this.generarPatron(73, [139, 50, 44],this.diseñoactual9, 7, 350, 150,800, 600); // patron 11
-                
-                this.generarObra(this.coloresFondos[18].r, this.coloresFondos[3].g, this.coloresFondos[14].b, 14, 255, 350,850,800);
-
-                this.generarObra(this.coloresFondos[10].r, this.coloresFondos[16].g, this.coloresFondos[16].b, 4, 70, 270, 1120, 1250);
-                this.generarPatron(65, [255, 118, 206], 10, 4, 70, 270, 1120, 1250); // patron 10
-
-                this.generarObra(this.coloresFondos[17].r, this.coloresFondos[17].g, this.coloresFondos[17].b, 13, 450, 560, 480, 480);
-                this.generarPatron(65, [255, 118, 206], 7,13, 455, 560, 480, 480); // patron7
-                
-                this.generarObra(this.coloresFondos[8].r, this.coloresFondos[13].g, this.coloresFondos[2].b, 18, 380, 50, 400, 500);
-                    
-                this.generarObra(this.coloresFondos[5].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 11, 360, 10, 850, 150);
-                this.generarPatron(65, [70, 130, 180],this.diseñoactual10,11, 360, 10, 850, 150); // patron 19
-                   
-                this.generarObra(this.coloresFondos[19].r, this.coloresFondos[19].g, this.coloresFondos[19].b, 10, 550, 50, 400, 400);
-                this.generarPatron(73, [200, 100, 50],this.diseñoactual12, 10, 550, 50, 400, 400); // patron 17
-
-                this.generarObra(this.coloresFondos[18].r, this.coloresFondos[18].g, this.coloresFondos[18].b, 17, 562, 420, 1820, 1600);
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 6, 510, 430, 700, 655);
-
-                this.generarObra(this.coloresFondos[12].r, this.coloresFondos[14].g, this.coloresFondos[14].b, 5, 90, 30,400,600);
-                pop();
-            break;
-
-            //--- OBRA 3 A LA DERECHA
-            case 11:
-                push();
-                background(240);
-                translate(width / 2, height / 2);
-                rotate(HALF_PI); // Gira 90 grados a la derecha
-
-                this.generarObra(this.coloresFondos[10].r, this.coloresFondos[10].g, this.coloresFondos[10].b, 11,-height / 2 + 318, -width /2 +340, 770, 850);
-
-                this.generarObra(this.coloresFondos[8].r, this.coloresFondos[8].g, this.coloresFondos[8].b, 8, -height / 2 +492, -width /2 +250, 700, 505);
-
-                this.generarObra(this.coloresFondos[9].r, this.coloresFondos[9].g, this.coloresFondos[9].b, 9, -height / 2 +564, -width /2 +255, 740, 525);
-                this.generarPatron(65, [0, 0, 0], this.diseñoactual3, 9, -height / 2 +564,-width /2 + 255, 740, 525); // patron 30 -- AHORA 3
-
-                this.generarObra(this.coloresFondos[0].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 0, -height / 2 +375,-width /2 + 518, 500, 500);
-
-                this.generarObra(this.coloresFondos[1].r, this.coloresFondos[1].g, this.coloresFondos[1].b, 1, -height / 2 +422, -width /2 +518, 500, 500);
-                this.generarPatron(65, [142, 62, 99], 16, 1, -height / 2 +422,-width /2 + 518, 500, 500); // AHORA 16
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 2, -height / 2 +465, -width /2 +518, 500, 500);
-
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[3].g, this.coloresFondos[3].b, 3, -height / 2 +505, -width /2 +518, 500, 500);
-
-                this.generarObra(this.coloresFondos[4].r, this.coloresFondos[4].g, this.coloresFondos[4].b, 4, -height / 2 +565, -width /2 +518, 500, 500);
-                this.generarPatron(73, [255, 150, 0], 11, 4, -height / 2 +565, -width /2 +518, 500, 500); // AHORA 11
-
-                this.generarObra(this.coloresFondos[7].r, this.coloresFondos[7].g, this.coloresFondos[7].b, 10, -height / 2 +80, -width /2 +223, 490, 514);
-                this.generarPatron(73, [255, 140, 0], 4, 10, -height / 2 +80, -width /2 +223, 490, 514); // patron 7
-
-                this.generarObra(this.coloresFondos[6].r, this.coloresFondos[6].g, this.coloresFondos[6].b, 6, -height / 2 +20, -width /2 +225, 500, 670);
-
-                this.generarObra(this.coloresFondos[5].r, this.coloresFondos[5].g, this.coloresFondos[5].b, 16, -height / 2 +165,-width /2 + 524, 680, 900);
-                this.generarPatron(65, [0, 250, 125], this.diseñoactual7, 16, -height / 2 +165, -width /2 +524, 680, 900); // patron 26 -- AHORA 8
-
-                this.generarObra(this.coloresFondos[11].r, this.coloresFondos[11].g, this.coloresFondos[11].b, 13, -height / 2 +324, -width /2 +156, 1146, 620);
-                this.generarPatron(65, [0, 0, 128],10,13, -height / 2 +324, -width /2 +156, 1146, 620); // patron 10
-
-                this.generarObra(this.coloresFondos[12].r, this.coloresFondos[12].g, this.coloresFondos[12].b, 15, -height / 2 +395, -width /2 +28, 480, 1820);
-                this.generarPatron(73, [70, 130, 180], 22,15, -height / 2 +395, -width /2 +28, 480, 1820); // patron 22 
-
-                pop();
-            break;
-
-            //--- OBRA 0 HORIZONTAL
-            case 12:
-                push();
-                background(240);
-                translate(width, 0);
-                scale(-1, 1); // Voltear horizontalmente
-                this.generarObra(this.coloresFondos[0].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 0, 30, 80, 500, 500);
-                this.generarObra(this.coloresFondos[1].r, this.coloresFondos[1].g, this.coloresFondos[1].b, 1, 80, 80, 500, 500);
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 2, 124, 80, 500, 500);
-
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[3].g, this.coloresFondos[3].b, 3, 164, 80, 500, 500);
-                this.generarPatron(65, [255, 150, 0], 0, 3, 164, 80, 500, 500); // patron 0
-
-                this.generarObra(this.coloresFondos[4].r, this.coloresFondos[4].g, this.coloresFondos[4].b, 4, 220, 80, 500, 500);
-
-                this.generarObra(this.coloresFondos[5].r, this.coloresFondos[5].g, this.coloresFondos[5].b, 5, 440, 30, 730, 730);
-                this.generarPatron(65, [255, 140, 0], this.diseñoActual, 5, 440, 30, 730, 730); // patron 7. cambiamos el patron
-
-                this.generarObra(this.coloresFondos[6].r, this.coloresFondos[6].g, this.coloresFondos[6].b, 6, 20, 380, 500, 645);
-                this.generarPatron(73, [0, 0, 128], 9, 6, 20, 380, 500, 645); // patron 9
-
-                this.generarObra(this.coloresFondos[7].r, this.coloresFondos[7].g, this.coloresFondos[7].b, 7, 148, 223, 490, 514);
-
-                this.generarObra(this.coloresFondos[8].r, this.coloresFondos[8].g, this.coloresFondos[8].b, 8, 272, 236, 700, 500);
-
-                this.generarObra(this.coloresFondos[9].r, this.coloresFondos[9].g, this.coloresFondos[9].b, 9, 344, 242, 740, 500);
-
-                this.generarObra(this.coloresFondos[10].r, this.coloresFondos[10].g, this.coloresFondos[10].b, 10, 491, 310, 704, 550);
-                this.generarPatron(65, [0, 0, 0], this.diseñoactual1, 10, 491, 310, 704, 550); // patron 2. cambiamos el patron
-
-                this.generarObra(this.coloresFondos[11].r, this.coloresFondos[11].g, this.coloresFondos[11].b, 11, 140, 344, 480, 550);
-                this.generarPatron(65, [0, 250, 125], 1, 11, 140, 344, 480, 550); // patron 1
-
-                this.generarObra(this.coloresFondos[12].r, this.coloresFondos[12].g, this.coloresFondos[12].b, 12, 218, 485, 546, 740);
-                this.generarPatron(65, [200, 200, 200], 5, 12, 218, 485, 546, 740); // patron 5
-
-                this.generarObra(this.coloresFondos[13].r, this.coloresFondos[13].g, this.coloresFondos[13].b, 15, 300, 575, 620, 950);
-                this.generarPatron(65, [142, 62, 99], 3, 15, 300, 575, 620, 950); // patron 3
-
-                pop();
-            break;
-
-            //--- OBRA 1 HORIZONTAL
-            case 13:
-                push();
-                background(240, 100, 10);
-
-                translate(width, 0);
-                scale(-1, 1); // Voltear horizontalmente
-                this.generarObra(this.coloresFondos[14].r, this.coloresFondos[14].g, this.coloresFondos[14].b, 13, 40, 220);
-                this.generarPatron(73, [255, 228, 181], this.diseñoactual2, 13, 40, 220); // patron 13
-
-                this.generarObra(this.coloresFondos[15].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 12, 80, 50, 900, 600);
-                this.generarPatron(65, [220, 20, 60], 15, 12, 70, 40, 900, 600); // patron 15
-
-                this.generarObra(this.coloresFondos[16].r, this.coloresFondos[16].g, this.coloresFondos[16].b, 4, 237, 285, 1120, 1000);
-                this.generarPatron(65, [60, 60, 60], 8, 4, 237, 285, 1120, 1000); // patron 8
-
-                this.generarObra(this.coloresFondos[17].r, this.coloresFondos[17].g, this.coloresFondos[17].b, 13, 65, 390, 480, 480);
-
-                this.generarObra(this.coloresFondos[18].r, this.coloresFondos[18].g, this.coloresFondos[18].b, 17, 345, 280, 950, 1380);
-                this.generarPatron(65, [255, 118, 206], 6, 17, 345, 280, 950, 1380); // patron 6
-
-                this.generarObra(this.coloresFondos[19].r, this.coloresFondos[19].g, this.coloresFondos[19].b, 12, 165, 510, 600, 900);
-                this.generarPatron(65, [217, 237, 191], 14, 12, 165, 510, 600, 900); // patron 14
-
-                this.generarObra(this.coloresFondos[0].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 11, 500, 250, 640, 1500);
-                
-                this.generarObra(this.coloresFondos[1].r, this.coloresFondos[1].g, this.coloresFondos[1].b, 18, 615, 50, 500, 500);
-                this.generarPatron(65, [139, 50, 44], this.diseñoactual3, 18, 615, 50, 500, 500); // patron 21 -- AHORA 3
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 11, 490, 520, 700, 655);
-                this.generarPatron(65, [255, 182, 193], 12, 11, 490, 520, 700, 655); // patron 12
-
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[3].g, this.coloresFondos[3].b, 15, 165, 430);
-                pop();
-            break;
-
-            //---- OBRA 2 DERECHA
-            case 14:
-                push();
-                background(240, 100, 50);
-
-                translate(width / 2, height / 2);
-                rotate(HALF_PI); // Gira 90 grados a la derecha
-                    
-                this.generarObra(this.coloresFondos[7].r, this.coloresFondos[5].g, this.coloresFondos[18].b, 10, -height / 2 +395, -width /2 +350, 550, 400);
-                this.generarPatron(65, [255, 228, 181],3,10, -height / 2 +395, -width /2 +350, 550, 400); // patron 3
-
-                this.generarObra(this.coloresFondos[13].r, this.coloresFondos[15].g, this.coloresFondos[15].b, 12, -height / 2 +80,-width /2 +540, 900, 600);
-                this.generarPatron(73, [0, 250, 125],this.diseñoactual4,12, -height / 2 +80, -width /2 +540, 900, 600); // patron 6
-                
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[13].g, this.coloresFondos[5].b, 7, -height / 2 +350, -width /2 +150,800, 600);
-                this.generarPatron(73, [139, 50, 44],11, 7, -height / 2 +350, -width /2 +150,800, 600); // patron 11
-                
-                this.generarObra(this.coloresFondos[18].r, this.coloresFondos[3].g, this.coloresFondos[14].b, 14, -height / 2 +255, -width /2 +350,850,800);
-                
-                //this.generarPatron(65, [220, 20, 60], 17, 12, 70, 40, 900, 600); // patron 17.
-
-                this.generarObra(this.coloresFondos[10].r, this.coloresFondos[16].g, this.coloresFondos[16].b, 4, -height / 2 +70, -width /2 +270, 1120, 1250);
-                this.generarPatron(65, [255, 118, 206], this.diseñoactual5, 4, -height / 2 +70, -width /2 +270, 1120, 1250); // patron  10
-
-                this.generarObra(this.coloresFondos[17].r, this.coloresFondos[17].g, this.coloresFondos[17].b, 13, -height / 2 +450, -width /2 +560, 480, 480);
-                this.generarPatron(65, [255, 118, 206], 7,13, -height / 2 +455, -width /2 +560, 480, 480); // patron  7
-                
-                this.generarObra(this.coloresFondos[8].r, this.coloresFondos[13].g, this.coloresFondos[2].b, 18, -height / 2 +380, -width /2 +50, 400, 500);
-                    
-                this.generarObra(this.coloresFondos[5].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 11, -height / 2 +360, -width /2 +10, 850, 150);
-                this.generarPatron(65, [70, 130, 180], 19,11, -height / 2 +360, -width /2 +10, 850, 150); // patron 1
-                   
-                this.generarObra(this.coloresFondos[19].r, this.coloresFondos[19].g, this.coloresFondos[19].b, 10, -height / 2 +550, -width /2 +50, 400, 400);
-                this.generarPatron(73, [200, 100, 50],17, 10, -height / 2 +550, -width /2 +50, 400, 400); // patron 17
-
-                this.generarObra(this.coloresFondos[18].r, this.coloresFondos[18].g, this.coloresFondos[18].b, 17, -height / 2 +562, -width /2 +420, 1820, 1600);
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 6, -height / 2 +510, -width /2 +430, 700, 655);
-
-                this.generarObra(this.coloresFondos[12].r, this.coloresFondos[14].g, this.coloresFondos[14].b, 5, -height / 2 +90, -width /2 +30,400,600);
-                pop();
-            break;
-
-             //--- OBRA 3 HORIZONTAL
-             case 15:
-                push();
-                background(240);
-                translate(width, 0);
-                scale(-1, 1); // Voltear horizontalmente
-
-                this.generarObra(this.coloresFondos[10].r, this.coloresFondos[10].g, this.coloresFondos[10].b, 11, 318, 340, 770, 850);
-
-                this.generarObra(this.coloresFondos[8].r, this.coloresFondos[8].g, this.coloresFondos[8].b, 8, 492, 250, 700, 505);
-
-                this.generarObra(this.coloresFondos[9].r, this.coloresFondos[9].g, this.coloresFondos[9].b, 9, 564, 255, 740, 525);
-                this.generarPatron(65, [0, 0, 0], this.diseñoactual3, 9, 564, 255, 740, 525); // patron 30 -- AHORA 3
-
-                this.generarObra(this.coloresFondos[0].r, this.coloresFondos[0].g, this.coloresFondos[0].b, 0, 375, 518, 500, 500);
-
-                this.generarObra(this.coloresFondos[1].r, this.coloresFondos[1].g, this.coloresFondos[1].b, 1, 422, 518, 500, 500);
-                this.generarPatron(65, [142, 62, 99], 16, 1, 422, 518, 500, 500); // AHORA 16
-
-                this.generarObra(this.coloresFondos[2].r, this.coloresFondos[2].g, this.coloresFondos[2].b, 2, 465, 518, 500, 500);
-
-                this.generarObra(this.coloresFondos[3].r, this.coloresFondos[3].g, this.coloresFondos[3].b, 3, 505, 518, 500, 500);
-
-                this.generarObra(this.coloresFondos[4].r, this.coloresFondos[4].g, this.coloresFondos[4].b, 4, 565, 518, 500, 500);
-                this.generarPatron(73, [255, 150, 0], 11, 4, 565, 518, 500, 500); // AHORA 11
-
-                this.generarObra(this.coloresFondos[7].r, this.coloresFondos[7].g, this.coloresFondos[7].b, 10, 80, 223, 490, 514);
-                this.generarPatron(73, [255, 140, 0], 4, 10, 80, 223, 490, 514); // patron 7
-
-                this.generarObra(this.coloresFondos[6].r, this.coloresFondos[6].g, this.coloresFondos[6].b, 6, 20, 225, 500, 670);
-
-                this.generarObra(this.coloresFondos[5].r, this.coloresFondos[5].g, this.coloresFondos[5].b, 16, 165, 524, 680, 900);
-                this.generarPatron(65, [0, 250, 125], this.diseñoactual7, 16, 165, 524, 680, 900); // patron 26 -- AHORA 8
-
-                this.generarObra(this.coloresFondos[11].r, this.coloresFondos[11].g, this.coloresFondos[11].b, 13, 324, 156, 1146, 620);
-                this.generarPatron(65, [0, 0, 128],10,13, 324, 156, 1146, 620); // patron 10
-
-                this.generarObra(this.coloresFondos[12].r, this.coloresFondos[12].g, this.coloresFondos[12].b, 15, 395, 28, 480, 1820);
-                this.generarPatron(73, [70, 130, 180], 22,15, 395, 28, 480, 1820); // patron 22 -- 11
-
-                pop();
-            break;
-
         }
         
     }
 
-    /*cambioObras(){
+    cambioObras(){
 
         if(this.estadoObra==0){
             this.estadoObra=1;
@@ -826,9 +512,8 @@ class obras{
             this.estadoObra=0;
         }
         
-    }*/
-
-  cambiarDiseño() {
+    }
+     cambiarDiseño() {
     this.diseñoActual = (this.diseñoActual + 1) % this.fondo.length; // Cambiar al siguiente diseño
   }
   cambiarDiseño1() {
@@ -870,7 +555,11 @@ class obras{
   cambiarDiseño13() {
     this.diseñoactual13 = (this.diseñoactual13 + 1) % this.fondo.length; // Cambiar al siguiente diseño
   }
+  cambiarDiseño14() {
+    this.diseñoactual14 = (this.diseñoactual14 + 1) % this.fondo.length; // Cambiar al siguiente diseño
+  }
+
   cambiarEstado() {
-    this.estadoObra = (this.estadoObra + 1) % 13; // Cambia el estado y asegura que esté en el rango válido
+    this.estadoObra = (this.estadoObra + 1) % 14; // Cambia el estado y asegura que esté en el rango válido
 }
 }

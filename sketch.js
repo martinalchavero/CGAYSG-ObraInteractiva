@@ -44,6 +44,25 @@ function preload() {
 //IMPRIMIR
 let IMPRIMIR = true;
 
+//colores
+const coloresHex = [
+  "0C0F14", "F1C552", "FBFDF7", "6D7ED6", "E157BB", "ADC2B8", 
+  "FD5A5F", "F7FEE3", "A3B7C1", "A19B40", "E9F0BB", "EB4208", 
+  "89A673", "E5E173", "A8B561", "556B78", "9F80CC", "ACF199", 
+  "D4FA88", "EAD366", "E7E937", "A2AAA8", "DC0205", "FC5920", 
+  "82939A", "FC4652", "FBFFFF", "FD5818", "FEA71F", "9BAF89", 
+  "F1F5DA", "E7E537"
+];
+
+// Convertir el color hexadecimal a objeto RGB
+function hexToRgb(hex) {
+  let bigint = parseInt(hex, 16);
+  let r = (bigint >> 16) & 255;
+  let g = (bigint >> 8) & 255;
+  let b = bigint & 255;
+  return { r, g, b };
+}
+
 function setup() {
   createCanvas(600, 600);
   o = new obras();
@@ -83,7 +102,7 @@ function draw() {
 
   // Cambiar colores con la voz
   if (haySonido && amp >= AMP_MAX && frec <= 0.3) {
-    console.log("Cambiando colores de los círculos (frecuencia grave)");
+    console.log("Cambiando colores de los patrones (frecuencia grave)");
 
     // Índices de los patrones a cambiar
     const patrones1 = [0, 2, 3, 5, 7, 8, 10, 12, 13, 14, 15, 16, 18, 20, 21, 23, 25, 26, 28, 30, 31, 32, 33, 34, 36];
@@ -96,30 +115,32 @@ function draw() {
     todosPatrones.forEach((indice) => {
       o.coloresActuales[indice] = o.generarColorAleatorio();
     });
-}
+      //detener la interacción
+    } else if (amp <= AMP_MAX && frec <= 0.3) {
+    console.log("Se detuvo el cambio de color de los patrones");
+  }
 
-  if (haySonido && amp > AMP_MAX && frec >= 0.7) {
+  if (haySonido && amp >= AMP_MAX && frec >= 0.7) {
     console.log("Cambiando colores los fondos (frecuencia aguda)");
     // Índices de los patrones a cambiar
     for (let i = 0; i < o.coloresFondos.length; i++) {
-      o.coloresFondos[i] = {
-      r: random(255),
-        g: random(255),
-        b: random(255)
-    };
-  }
+      const randomColorHex = coloresHex[Math.floor(Math.random() * coloresHex.length)];
+      o.coloresFondos[i] = hexToRgb(randomColorHex); // Convertir el color hex a RGB
+  }  
+  //detener la interacción
+  } else if (amp <= AMP_MAX && frec >= 0.7) {
+  console.log("Se detuvo el cambio de color de los fondos");
 }
 
 //cambio estado
 if (empezoElSonido && amp < 0.1 && frec >= 0.4) {
-    //o.cambioObras(); 
     generarObra = (generarObra + 1) % 15;
     cambiarObra(generarObra);
     console.log("Se detectó cambio estado");
 }
 
+// Cambiar de diseño patron
   if (haySonido && amp > 0.05 && frec <= 0.4) {
-      // Cambiar de diseño patron
     // Incrementar el diseño actual y asegurarse de que esté dentro del rango válido
     diseñoActual = (diseñoActual + 1) % 15;
   
@@ -198,7 +219,6 @@ function getPitch() {
     if (frequency) {
 
       gestorPitch.actualizar(frequency);    
-      console.log(frequency);
     } 
     getPitch();
   })
@@ -214,8 +234,8 @@ function gotResult(error, results) {
   label = results[0].label;
 }
 
-
 function printData(){
+
   push();
   textSize (16);
   fill(0);
